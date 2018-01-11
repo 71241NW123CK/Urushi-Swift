@@ -10,44 +10,46 @@ import Gloss
 
 public struct Urushi<T: Glossy> {
     let key: String
-    let defaultModelProducer: () -> T
-    var maybeModel: T?
+    let defaultProvider: () -> T // should this be named defaultDefaultProvider?
+    var maybeValue: T?
     
-    public var model: T {
+    public var value: T {
         mutating get {
-            let m = maybeModel ?? fetchModel()
-            maybeModel = m
-            return m
+            let t = maybeValue ?? UserDefaults.standard.glossyValue(forKey: key, defaultProvider: defaultProvider)
+            maybeValue = t
+            return t
         }
         
-        set(newModel) {
-            storeModel(newModel)
-            maybeModel = newModel
+        set(newValue) {
+            UserDefaults.standard.set(newValue, forKey: key)
+            maybeValue = newValue
         }
     }
     
-    public init(key: String, defaultModelProducer: @escaping () -> T) {
+    public init(key: String, defaultProvider: @escaping () -> T) {
         self.key = key
-        self.defaultModelProducer = defaultModelProducer
+        self.defaultProvider = defaultProvider
     }
-    
-    func fetchModel() -> T {
+}
+
+extension UserDefaults {
+    func glossyValue<T: Glossy>(forKey defaultName: String, defaultProvider: () -> T) -> T {
         guard
-            let data = UserDefaults.standard.data(forKey: key),
-            let m = T(data: data)
-            else {
-                return defaultModelProducer()
+            let data = data(forKey: defaultName),
+            let t = T(data: data)
+        else {
+            return defaultProvider()
         }
-        return m
+        return t
     }
     
-    func storeModel(_ model: T) {
+    func set<T: Glossy>(_ value: T, forKey defaultName: String) {
         guard
-            let json = model.toJSON(),
+            let json = value.toJSON(),
             let data = try? JSONSerialization.data(withJSONObject: json, options: [])
-            else {
-                return
+        else {
+            return
         }
-        UserDefaults.standard.set(data, forKey: key)
+        set(data, forKey: defaultName)
     }
 }
