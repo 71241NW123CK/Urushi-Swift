@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Urushi_Example' do
+  pod 'Urushi', :path => '../'
+
+  target 'Urushi_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
