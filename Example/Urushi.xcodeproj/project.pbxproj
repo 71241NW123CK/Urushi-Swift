@@ -15,6 +15,7 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		85CB309CED45B9F095ABD745 /* Pods_Urushi_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B2DA0BA799872635A2E42ED /* Pods_Urushi_Example.framework */; };
 		88AFD12913522DEFDBB8401B /* Pods_Urushi_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C86E790E4B0ADD81DE0470FD /* Pods_Urushi_Tests.framework */; };
+		BDA7DD6C20077FF700E54D1D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA7DD6B20077FF700E54D1D /* Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,8 +30,8 @@
 
 /* Begin PBXFileReference section */
 		0A488AEE65FCD6A18FC2F891 /* Pods-Urushi_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Urushi_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Urushi_Example/Pods-Urushi_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		1CEE4A463B6D437885D311A1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		5D458D8FEAF69B14012A2653 /* Urushi.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = Urushi.podspec; path = ../Urushi.podspec; sourceTree = "<group>"; };
+		1CEE4A463B6D437885D311A1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		5D458D8FEAF69B14012A2653 /* Urushi.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Urushi.podspec; path = ../Urushi.podspec; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Urushi_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Urushi_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,8 +43,9 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		6B2DA0BA799872635A2E42ED /* Pods_Urushi_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Urushi_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		83A5886BF0BB7BC531906A51 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		83A5886BF0BB7BC531906A51 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		8EDEB23D4EFF4C931DF39DC3 /* Pods-Urushi_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Urushi_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Urushi_Example/Pods-Urushi_Example.release.xcconfig"; sourceTree = "<group>"; };
+		BDA7DD6B20077FF700E54D1D /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		C3CCC9F5D93CC713496ECD52 /* Pods-Urushi_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Urushi_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Urushi_Tests/Pods-Urushi_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C86E790E4B0ADD81DE0470FD /* Pods_Urushi_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Urushi_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2839D3833D910293CE87AE8 /* Pods-Urushi_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Urushi_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Urushi_Tests/Pods-Urushi_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
+				BDA7DD6B20077FF700E54D1D /* Model.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -215,10 +218,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 42533R2QMN;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = 42533R2QMN;
 						LastSwiftMigration = 0900;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -319,10 +324,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Urushi_Example/Pods-Urushi_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Gloss/Gloss.framework",
 				"${BUILT_PRODUCTS_DIR}/Urushi/Urushi.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gloss.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Urushi.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -370,6 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDA7DD6C20077FF700E54D1D /* Model.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
@@ -517,6 +525,7 @@
 			baseConfigurationReference = 0A488AEE65FCD6A18FC2F891 /* Pods-Urushi_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 42533R2QMN;
 				INFOPLIST_FILE = Urushi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -532,6 +541,7 @@
 			baseConfigurationReference = 8EDEB23D4EFF4C931DF39DC3 /* Pods-Urushi_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 42533R2QMN;
 				INFOPLIST_FILE = Urushi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -546,6 +556,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C3CCC9F5D93CC713496ECD52 /* Pods-Urushi_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 42533R2QMN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -567,6 +578,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F2839D3833D910293CE87AE8 /* Pods-Urushi_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 42533R2QMN;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

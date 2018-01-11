@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import Urushi
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    static var urushi: Urushi<Model> = Urushi<Model>(key: "example") {
+        return Model.defaultModel
+    }
 
     var window: UIWindow?
 
@@ -40,7 +44,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
-

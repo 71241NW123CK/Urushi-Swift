@@ -1,6 +1,6 @@
 # Urushi
 
-[![CI Status](http://img.shields.io/travis/Ryan Hiroaki Tsukamoto/Urushi.svg?style=flat)](https://travis-ci.org/Ryan Hiroaki Tsukamoto/Urushi)
+[![CI Status](http://img.shields.io/travis/71241NW123CK/Urushi-Swift.svg?style=flat)](https://travis-ci.org/712421NW123CK/Urushi-Swift)
 [![Version](https://img.shields.io/cocoapods/v/Urushi.svg?style=flat)](http://cocoapods.org/pods/Urushi)
 [![License](https://img.shields.io/cocoapods/l/Urushi.svg?style=flat)](http://cocoapods.org/pods/Urushi)
 [![Platform](https://img.shields.io/cocoapods/p/Urushi.svg?style=flat)](http://cocoapods.org/pods/Urushi)
