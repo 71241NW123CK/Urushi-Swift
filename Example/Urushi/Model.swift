@@ -38,3 +38,31 @@ struct Model: Glossy {
             ])
     }
 }
+
+struct FulfilmentOrder: Glossy {
+    var incendiaryLemonCount: Int
+    var weightedStorageCubeCount: Int
+    
+    init(incendiaryLemonCount: Int, weightedStorageCubeCount: Int) {
+        self.incendiaryLemonCount = incendiaryLemonCount
+        self.weightedStorageCubeCount = weightedStorageCubeCount
+    }
+    
+    init?(json: JSON) {
+        guard
+            let incendiaryLemonCount: Int = "incendiaryLemonCount" <~~ json,
+            let weightedStorageCubeCount: Int = "weightedStorageCubeCount" <~~ json
+        else {
+            return nil
+        }
+        self.incendiaryLemonCount = incendiaryLemonCount
+        self.weightedStorageCubeCount = weightedStorageCubeCount
+    }
+    
+    func toJSON() -> JSON? {
+        return jsonify([
+            "incendiaryLemonCount" ~~> incendiaryLemonCount,
+            "weightedStorageCubeCount" ~~> weightedStorageCubeCount
+            ])
+    }
+}

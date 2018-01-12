@@ -7,16 +7,10 @@
 //
 
 import UIKit
-import Urushi
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    static var urushi: Urushi<Model> = Urushi<Model>(key: "example") {
-        return Model.defaultModel
-    }
-
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

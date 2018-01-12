@@ -7,28 +7,115 @@
 //
 
 import UIKit
+import Urushi
 
 class ViewController: UIViewController {
+    static var fulfilmentOrderUrushiArray: UrushiArray<FulfilmentOrder> = UrushiArray(key: "fulfilmentOrderList")
+    static var modelUrushi: Urushi = Urushi(key: "model") { return Model(foo: "bar", biz: "baz") }
+    
     @IBOutlet weak var fooTextField: UITextField!
     @IBOutlet weak var bizTextField: UITextField!
-
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let model = AppDelegate.urushi.value
-        fooTextField.text = model.foo
-        bizTextField.text = model.biz
+        fooTextField.text = ViewController.modelUrushi.value.foo
+        bizTextField.text = ViewController.modelUrushi.value.biz
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 42
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
-    @IBAction func saveButtonWasTapped(_ sender: Any) {
-        // Probably better to get the value as a var, mutate it, and then set its new value to AppDelegate.urushi.value, but setting fields in the value directly here to illustrate what you can do.
-        guard
-            let foo = fooTextField.text,
-            let biz = bizTextField.text
-        else {
-            return
+    @IBAction func fooTextFieldEditingChanged(_ sender: Any) {
+        if let fooTextFieldText = fooTextField.text {
+            ViewController.modelUrushi.value.foo = fooTextFieldText
         }
-        AppDelegate.urushi.value.foo = foo
-        AppDelegate.urushi.value.biz = biz
+    }
+    
+    @IBAction func bizTextFieldEditingChanged(_ sender: Any) {
+        if let bizTextFieldText = bizTextField.text {
+            ViewController.modelUrushi.value.biz = bizTextFieldText
+        }
+    }
+    
+    @IBAction func addFulfilmentOrderButtonWasTapped(_ sender: Any) {
+        ViewController.fulfilmentOrderUrushiArray.append(FulfilmentOrder(incendiaryLemonCount: 42, weightedStorageCubeCount: 420))
+        tableView.reloadData()
+    }
+}
+
+class AddAnOrderTableViewCell: UITableViewCell {}
+
+class FulfilmentOrderTableViewCell: UITableViewCell {
+    @IBOutlet weak var incendiaryLemonCountLabel: UILabel!
+    @IBOutlet weak var incendiaryLemonCountStepper: UIStepper!
+    @IBOutlet weak var weightedStorageCubeCountLabel: UILabel!
+    @IBOutlet weak var weightedStorageCubeCountStepper: UIStepper!
+    
+    var index: Int!
+    
+    @IBAction func incendiaryLemonCountStepperValueChanged(_ sender: Any) {
+        let incendiaryLemonCount = Int(incendiaryLemonCountStepper.value)
+        incendiaryLemonCountLabel.text = "\(incendiaryLemonCount)"
+        ViewController.fulfilmentOrderUrushiArray[index].incendiaryLemonCount = incendiaryLemonCount
+    }
+    
+    @IBAction func weightedStorageCubeCountStepperValueChanged(_ sender: Any) {
+        let weightedStorageCubeCount = Int(weightedStorageCubeCountStepper.value)
+        weightedStorageCubeCountLabel.text = "\(weightedStorageCubeCount)"
+        ViewController.fulfilmentOrderUrushiArray[index].weightedStorageCubeCount = weightedStorageCubeCount
+    }
+    
+    func bind(index: Int) {
+        self.index = index
+        let fulfilmentOrder = ViewController.fulfilmentOrderUrushiArray[index]
+        incendiaryLemonCountStepper.value = Double(fulfilmentOrder.incendiaryLemonCount)
+        incendiaryLemonCountLabel.text = "\(fulfilmentOrder.incendiaryLemonCount)"
+        weightedStorageCubeCountStepper.value = Double(fulfilmentOrder.weightedStorageCubeCount)
+        weightedStorageCubeCountLabel.text = "\(fulfilmentOrder.weightedStorageCubeCount)"
+    }
+}
+
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let fulfilmentOrderUrushiArrayCount = ViewController.fulfilmentOrderUrushiArray.count
+        return fulfilmentOrderUrushiArrayCount == 0 ? 1 : fulfilmentOrderUrushiArrayCount
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if ViewController.fulfilmentOrderUrushiArray.isEmpty {
+            return tableView.dequeueReusableCell(withIdentifier: "add-an-order", for: indexPath) as? AddAnOrderTableViewCell ?? UITableViewCell()
+        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "fulfilment-order", for: indexPath) as? FulfilmentOrderTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.bind(index: indexPath.row)
+        return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return !ViewController.fulfilmentOrderUrushiArray.isEmpty
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        if ViewController.fulfilmentOrderUrushiArray.isEmpty {
+            return []
+        }
+        let deleteAction = UITableViewRowAction(style: .default, title: nil) { (action, indexPath) in
+            tableView.beginUpdates()
+            _ = ViewController.fulfilmentOrderUrushiArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+        }
+        return [deleteAction]
     }
 }
