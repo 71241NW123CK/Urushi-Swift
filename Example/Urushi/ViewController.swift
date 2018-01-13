@@ -115,6 +115,7 @@ extension ViewController: UITableViewDelegate {
             _ = ViewController.fulfilmentOrderUrushiArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
+            tableView.reloadData()
         }
         return [deleteAction]
     }
