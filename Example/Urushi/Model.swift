@@ -39,7 +39,7 @@ struct Model: Glossy {
     }
 }
 
-struct FulfilmentOrder: Glossy {
+struct FulfilmentOrder: Glossy { // this is a parody
     var incendiaryLemonCount: Int
     var weightedStorageCubeCount: Int
     

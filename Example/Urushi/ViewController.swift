@@ -10,9 +10,9 @@ import UIKit
 import Urushi
 
 class ViewController: UIViewController {
-    static var fulfilmentOrderUrushiArray: UrushiArray<FulfilmentOrder> = UrushiArray(key: "fulfilmentOrderList")
-    static var modelUrushi: Urushi = Urushi(key: "model") { return Model(foo: "bar", biz: "baz") }
-    
+    static var fulfilmentOrderUrushiArray: Disk.UrushiArray<FulfilmentOrder> = Disk.UrushiArray(key: Disk.Key(directory: .applicationSupport, path: "fulfilmentOrderList"))
+    static var modelUrushi: Disk.Urushi = Disk.Urushi(key: Disk.Key(directory: .applicationSupport, path: "model")) { return Model(foo: "bar", biz: "baz") }
+
     @IBOutlet weak var fooTextField: UITextField!
     @IBOutlet weak var bizTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
@@ -82,24 +82,39 @@ class FulfilmentOrderTableViewCell: UITableViewCell {
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let fulfilmentOrderUrushiArrayCount = ViewController.fulfilmentOrderUrushiArray.count
-        return fulfilmentOrderUrushiArrayCount == 0 ? 1 : fulfilmentOrderUrushiArrayCount
+        switch section {
+        case 0:
+            return fulfilmentOrderUrushiArrayCount == 0 ? 1 : 0
+        case 1:
+            return fulfilmentOrderUrushiArrayCount
+        default:
+            return 0
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if ViewController.fulfilmentOrderUrushiArray.isEmpty {
+        switch indexPath.section {
+        case 0:
             return tableView.dequeueReusableCell(withIdentifier: "add-an-order", for: indexPath) as? AddAnOrderTableViewCell ?? UITableViewCell()
-        }
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "fulfilment-order", for: indexPath) as? FulfilmentOrderTableViewCell else {
+        case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "fulfilment-order", for: indexPath) as? FulfilmentOrderTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.bind(index: indexPath.row)
+            return cell
+        default:
             return UITableViewCell()
         }
-        cell.bind(index: indexPath.row)
-        return cell
     }
 }
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return !ViewController.fulfilmentOrderUrushiArray.isEmpty
+        return indexPath.section == 1
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -113,9 +128,14 @@ extension ViewController: UITableViewDelegate {
         let deleteAction = UITableViewRowAction(style: .default, title: nil) { (action, indexPath) in
             tableView.beginUpdates()
             _ = ViewController.fulfilmentOrderUrushiArray.remove(at: indexPath.row)
+            if ViewController.fulfilmentOrderUrushiArray.count == 0 {
+                tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+            }
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
-            tableView.reloadData()
+            DispatchQueue.main.async {
+                tableView.reloadData()
+            }
         }
         return [deleteAction]
     }

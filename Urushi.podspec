@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Urushi'
-  s.version          = '0.1.2'
+  s.version          = '0.2.0'
   s.summary          = 'Persist `Glossy` structs.'
 
 # This description is used to generate tags and improve search results.
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-Urushi lets you use a `Glossy` struct as a persistent store.  Your struct is JSON serialized and persisted in `UserDefaults.shared`.  Setting values in your struct will update what is stored in `UserDefaults.shared`.  Put a static instance in your `AppDelegate` or something like that.  Then just set it (the `model`) and forget it!
+Urushi lets you use a `Glossy` struct as a persistent store.  Your struct is JSON serialized and persisted on disk.  Setting values in your struct will update what is stored on disk.  Put a static instance in your `AppDelegate` or something like that.  Then just set it (the `model`) and forget it!
                        DESC
 
   s.homepage         = 'https://github.com/71241NW123CK/Urushi-Swift'
